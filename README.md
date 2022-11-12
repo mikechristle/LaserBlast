@@ -1,6 +1,10 @@
 # LaserBlast
 A Laser Cannon Strategy Game
 
+### Motivation
+Why did I write this program, and why in Python? Well there were really two reasons. First I wanted to quickly test various game rules and strategies. Python and pygames made prototyping quick and easy. This is actually about the twentieth version of the game. Second I wanted to try the new match/case statements that were added in Python 3.10.
+I found lots of uses for match/case and I really like it.
+
 ### Installation
 This program requires Python 3.10 or later, and pygames.
 I am currently running pygames 2.1.2.
@@ -43,3 +47,9 @@ If the beam hits the edge of a mirror, the mirror is destroyed.
 The red player can use either the mouse or game controller 1 for input. 
 The green player can use the keyboard or game controller 0 for input.
 The keyboard uses the arrow keys to move the cross and either ENTER or SPACE to select.
+
+### Screen Size
+I adjusted the size of the display to fit my monitor. 
+You can change it to fit your monitor by changing the value of the constant SQUARE_SIZE 
+at the top of the file Paint.py. 
+Everything else is calculated from this value.
