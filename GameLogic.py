@@ -3,6 +3,7 @@
 #
 # History
 #  1 Nov 2022 Mike Christle     Created
+# 14 Nov 2022 Mike Christle     Add mirrors to the borders
 # ---------------------------------------------------------------------------
 # MIT Licence
 # Copyright 2022 Mike Christle
