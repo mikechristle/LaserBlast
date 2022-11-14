@@ -33,10 +33,12 @@ This allows you to jump over other pieces.
 ### Firing the Laser
 The laser cannons can be rotated to four orientations. 
 The mirrors can be rotated to eight orientations.
+The four borders are also covered in mirrors.
 This allows the laser beam to travel horizontally, vertically or diagonally.
 If the beam hits square to the face of a mirror, it will bounce back and destroy the 
 laser cannon that fired it.
 If the beam hits the edge of a mirror, the mirror is destroyed.
+Since the borders are mirrors, the laser beam will bounce around until something is destroyed.
 
 ### User Inputs
 The red player can use either the mouse or game controller 1 for input. 
