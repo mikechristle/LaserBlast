@@ -71,17 +71,12 @@ while True:
 
             # Exit if window is closed
             case [pygame.QUIT, _]:
-                print('>>>>>> EXITING')
                 sys.exit()
 
             # If F1 is pressed, start new game
             case [pygame.KEYDOWN, _] if event.key == pygame.K_F1:
                 init_game()
-
-            # If 'M' is pressed, show menu
-            case [pygame.KEYDOWN, _] if event.key == pygame.K_m:
-                popup_menu.show_menu()
-                pygame.display.update()
+                paint()
 
             # If green player, handle keyboard events
             case [pygame.KEYDOWN, Cell.GRN_TEAM]:
