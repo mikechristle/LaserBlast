@@ -79,6 +79,7 @@ def init_game():
         GameState.player = Cell.RED_TEAM
     else:
         GameState.player = Cell.GRN_TEAM
+    GameState.player = Cell.RED_TEAM
 
     # Reset counts
     move_count = 2
@@ -98,7 +99,7 @@ def find_laser_path():
     Set hit x and y if something is destroyed.
     """
 
-    global hit_x, hit_y
+    global hit_x, hit_y, select_x, select_y
 
     hit_x = hit_y = -1
     x = select_x
@@ -118,9 +119,7 @@ def find_laser_path():
     while True:
 
         # Save current coordinates
-        dx = x
-        dy = y
-        GameState.laser_path.append((dx, dy))
+        GameState.laser_path.append((x, y))
 
         # Get the current cell
         cell = GameState.grid[y][x]
@@ -131,56 +130,125 @@ def find_laser_path():
 
         # Advance to next cell
         match direction:
-            case 0: # N
+            case GameState.N:
                 y -= 1
-            case 1: # NE
+            case GameState.NE:
                 x += 1
                 y -= 1
-            case 2: # E
+            case GameState.E:
                 x += 1
-            case 3: # SE
+            case GameState.SE:
                 x += 1
                 y += 1
-            case 4: # S
+            case GameState.S:
                 y += 1
-            case 5: # SW
+            case GameState.SW:
                 y += 1
                 x -= 1
-            case 6: # W
+            case GameState.W:
                 x -= 1
-            case 7: # NW
+            case GameState.NW:
                 x -= 1
                 y -= 1
             case 8: # Hit edge of a mirror
                 hit_x = x
                 hit_y = y
-                break
+                return
             case 9: # Hit face of a mirror
-                hit_x = select_x
-                hit_y = select_y
-                if GameState.grid[select_y][select_x].team == Cell.RED_TEAM:
-                    GameState.red_laser_count -= 1
-                else:
-                    GameState.grn_laser_count -= 1
-                break
+                hit_mirror_face(x, y)
+                return
 
-        # If laser leaves the board
-        if x < 0 or x > 7 or y < 0 or y > 7:
-            GameState.laser_path.append((x, y))
-            break
+        # If laser hits a border mirror
+        match [direction, y, x]:
+            case [GameState.NW, -1, -1]: # Top left corner
+                hit_mirror_face(x, y)
+                return
+            case [GameState.NW, -1, _]: # Top side
+                GameState.laser_path.append((x, y))
+                GameState.laser_path.append((x + 1, y))
+                y += 1
+                direction = GameState.SW
+            case [GameState.NW, _, -1]: # Left side
+                GameState.laser_path.append((x, y))
+                GameState.laser_path.append((x, y + 1))
+                x += 1
+                direction = GameState.NE
 
-        # If laser beam hits a laser gun
+            case [GameState.NE, -1, GameState.square_count]: # Top right corner
+                hit_mirror_face(x, y)
+                return
+            case [GameState.NE, -1, _]: # Top side
+                GameState.laser_path.append((x, y))
+                GameState.laser_path.append((x - 1, y))
+                y += 1
+                direction = GameState.SE
+            case [GameState.NE, _, GameState.square_count]: # Right side
+                GameState.laser_path.append((x, y))
+                GameState.laser_path.append((x, y + 1))
+                x -= 1
+                direction = GameState.NW
+
+            case [GameState.SW, GameState.square_count, -1]: # Bottom left corner
+                hit_mirror_face(x, y)
+                return
+            case [GameState.SW, GameState.square_count, _]: # Bottom side
+                GameState.laser_path.append((x, y))
+                GameState.laser_path.append((x + 1, y))
+                y -= 1
+                direction = GameState.NW
+            case [GameState.SW, _, -1]: # Left side
+                GameState.laser_path.append((x, y))
+                GameState.laser_path.append((x, y - 1))
+                x += 1
+                direction = GameState.SE
+
+            case [GameState.SE, GameState.square_count, GameState.square_count]: # Bottom right corner
+                hit_mirror_face(x, y)
+                return
+            case [GameState.SE, GameState.square_count, _]: # Bottom side
+                GameState.laser_path.append((x, y))
+                GameState.laser_path.append((x - 1, y))
+                y -= 1
+                direction = GameState.NE
+            case [GameState.SE, _, GameState.square_count]: # Right side
+                GameState.laser_path.append((x, y))
+                GameState.laser_path.append((x, y - 1))
+                x -= 1
+                direction = GameState.SW
+
+            case [GameState.N, -1, _]: # Top side
+                hit_mirror_face(x, y)
+                return
+            case [GameState.S, GameState.square_count, _]: # Bottom side
+                hit_mirror_face(x, y)
+                return
+            case [GameState.W, _, -1]: # Left side
+                hit_mirror_face(x, y)
+                return
+            case [GameState.E, _, GameState.square_count]: # Right side
+                hit_mirror_face(x, y)
+                return
+
+            # If laser beam hits a laser gun
         cell = GameState.grid[y][x]
         if cell.actor == Cell.LASER:
-            if cell.team == Cell.RED_TEAM:
-                GameState.red_laser_count -= 1
-            else:
-                GameState.grn_laser_count -= 1
+            select_x = x
+            select_y = y
+            hit_mirror_face(x, y)
+            return
 
-            GameState.laser_path.append((x, y))
-            hit_x = x
-            hit_y = y
-            break
+
+# ---------------------------------------------------------------------------
+def hit_mirror_face(x, y):
+    global hit_x, hit_y
+
+    GameState.laser_path.append((x, y))
+    hit_x = select_x
+    hit_y = select_y
+    if GameState.grid[select_y][select_x].team == Cell.RED_TEAM:
+        GameState.red_laser_count -= 1
+    else:
+        GameState.grn_laser_count -= 1
 
 
 # ---------------------------------------------------------------------------

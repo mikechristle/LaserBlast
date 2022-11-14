@@ -27,16 +27,40 @@
 # ---------------------------------------------------------------------------
 
 import sys, pygame
+import pygame_menu
 import GameState
 
 from Cell import Cell
-from Paint import paint, get_grid_xy
+from Paint import paint, get_grid_xy, screen
 from GameLogic import init_game, click
 
 init_game()
 pygame.joystick.init()
 joysticks = [pygame.joystick.Joystick(x) for x in range(pygame.joystick.get_count())]
 paint()
+
+
+# ---------------------------------------------------------------------------
+def set_level(_, level):
+    print('>>>', level)
+
+
+# ---------------------------------------------------------------------------
+def menu_cancel():
+    menu.disable()
+
+
+# ---------------------------------------------------------------------------
+def new_game():
+    init_game()
+    menu.disable()
+
+
+menu = pygame_menu.Menu('Laser Blast', 260, 220,
+                        theme = pygame_menu.themes.THEME_BLUE)
+menu.add.selector('Level:', [('8x8', 0), ('12x12', 1)], onchange = set_level)
+menu.add.button('Start New Game', new_game)
+menu.add.button('Cancel', menu_cancel)
 
 while True:
 
@@ -46,11 +70,17 @@ while True:
 
             # Exit if window is closed
             case [pygame.QUIT, _]:
+                print('>>>>>> EXITING')
                 sys.exit()
 
             # If F1 is pressed, start new game
             case [pygame.KEYDOWN, _] if event.key == pygame.K_F1:
                 init_game()
+
+            # If 'M' is pressed, show menu
+            case [pygame.KEYDOWN, _] if event.key == pygame.K_m:
+                popup_menu.show_menu()
+                pygame.display.update()
 
             # If green player, handle keyboard events
             case [pygame.KEYDOWN, Cell.GRN_TEAM]:
@@ -115,7 +145,12 @@ while True:
                     GameState.cursor_y = y
                     paint()
 
+            # case [pygame.MOUSEBUTTONUP, _] if event.button == 3:
+            #     menu.enable()
+            #     menu.mainloop(screen)
+            #     paint()
+
             # If red player, handle mouse button events
-            case [pygame.MOUSEBUTTONUP, Cell.RED_TEAM]:
+            case [pygame.MOUSEBUTTONUP, Cell.RED_TEAM] if event.button == 1:
                 click()
                 paint()

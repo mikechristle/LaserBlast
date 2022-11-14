@@ -29,6 +29,15 @@
 from Cell import Cell
 
 
+N  = 0
+NE = 1
+E  = 2
+SE = 3
+S  = 4
+SW = 5
+W  = 6
+NW = 7
+
 END = 0     # End of game, one player lost all lasers
 WAIT = 1    # Waiting for the red player to select a piece
 ACTION = 3  # Waiting for player to select an action
@@ -38,6 +47,7 @@ state = WAIT
 player = Cell.RED_TEAM
 
 # The grid stores the state of the playing board
+square_count = 8
 grid = [[Cell() for _ in range(8)] for _ in range(8)]
 
 # Location of the cursor on the board
