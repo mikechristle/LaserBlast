@@ -1,5 +1,14 @@
 # Laser Blast
 
+### Motivation
+Why did I write this program, and why in Python? 
+Well there were really two reasons. 
+First I wanted to quickly test various game rules and strategies. 
+Python and pygames made prototyping quick and easy. 
+This is actually about the twentieth version of the game. 
+Second I wanted to try the new match/case statements that were added in Python 3.10.
+I found lots of uses for match/case and I really like it.
+
 ### Installation
 This program requires Python 3.10 or later, and pygames.
 I am currently running pygames 2.1.2.
