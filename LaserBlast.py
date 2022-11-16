@@ -4,6 +4,8 @@
 # History
 #  1 Nov 2022 Mike Christle     Created
 # 14 Nov 2022 Mike Christle     Add mirrors to the borders
+# 15 Nov 2022 Mike Christle     Switch to 9x9 square grid
+#                               Allow laser cannons to fire diagonally
 # ---------------------------------------------------------------------------
 # MIT Licence
 # Copyright 2022 Mike Christle
@@ -56,15 +58,14 @@ while True:
 
             # If green player, handle keyboard events
             case [pygame.KEYDOWN, Cell.GRN_TEAM]:
-                print(event.key, pygame.K_F1)
                 match event.key:
                     case pygame.K_UP if GameState.cursor_y > 0:
                         GameState.cursor_y -= 1
-                    case pygame.K_RIGHT if GameState.cursor_x < 8:
+                    case pygame.K_RIGHT if GameState.cursor_x < 9:
                         GameState.cursor_x += 1
                     case pygame.K_LEFT if GameState.cursor_x > 0:
                         GameState.cursor_x -= 1
-                    case pygame.K_DOWN if GameState.cursor_y < 7:
+                    case pygame.K_DOWN if GameState.cursor_y < 8:
                         GameState.cursor_y += 1
                     case pygame.K_RETURN | pygame.K_SPACE:
                         click()
@@ -83,28 +84,28 @@ while True:
                     paint()
 
             # If red player, handle controller 1 axis events
-            case [pygame.JOYAXISMOTION, Cell.RED_TEAM]: # if event.joy == current_player:
+            case [pygame.JOYAXISMOTION, Cell.RED_TEAM]:
                 match [event.joy, event.axis, int(event.value)]:
                     case [1, 4, -1] if GameState.cursor_y > 0:
                         GameState.cursor_y -= 1
-                    case [1, 4, 1] if GameState.cursor_y < 7:
+                    case [1, 4, 1] if GameState.cursor_y < 8:
                         GameState.cursor_y += 1
                     case [1, 0, -1] if GameState.cursor_x > 0:
                         GameState.cursor_x -= 1
-                    case [1, 0, 1] if GameState.cursor_x < 8:
+                    case [1, 0, 1] if GameState.cursor_x < 9:
                         GameState.cursor_x += 1
                 paint()
 
             # If green player, handle controller 0 axis events
-            case [pygame.JOYAXISMOTION, Cell.GRN_TEAM]: # if event.joy == current_player:
+            case [pygame.JOYAXISMOTION, Cell.GRN_TEAM]:
                 match [event.joy, event.axis, int(event.value)]:
                     case [0, 4, -1] if GameState.cursor_y > 0:
                         GameState.cursor_y -= 1
-                    case [0, 4, 1] if GameState.cursor_y < 7:
+                    case [0, 4, 1] if GameState.cursor_y < 8:
                         GameState.cursor_y += 1
                     case [0, 0, -1] if GameState.cursor_x > 0:
                         GameState.cursor_x -= 1
-                    case [0, 0, 1] if GameState.cursor_x < 8:
+                    case [0, 0, 1] if GameState.cursor_x < 9:
                         GameState.cursor_x += 1
                 paint()
 

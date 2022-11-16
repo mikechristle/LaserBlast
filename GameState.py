@@ -4,6 +4,7 @@
 # History
 #  1 Nov 2022 Mike Christle     Created
 # 14 Nov 2022 Mike Christle     Add mirrors to the borders
+# 15 Nov 2022 Mike Christle     Switch to 9x9 square grid
 # ---------------------------------------------------------------------------
 # MIT Licence
 # Copyright 2022 Mike Christle
@@ -48,15 +49,12 @@ state = WAIT
 player = Cell.RED_TEAM
 
 # The grid stores the state of the playing board
-square_count = 8
-grid = [[Cell() for _ in range(8)] for _ in range(8)]
+SQUARE_COUNT = 9
+grid = [[Cell() for _ in range(SQUARE_COUNT)] for _ in range(SQUARE_COUNT)]
 
 # Location of the cursor on the board
 cursor_x = 0
 cursor_y = 0
-
-# path of a laser beam
-laser_path = []
 
 # Count of each players lasers
 grn_laser_count = 0

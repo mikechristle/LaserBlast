@@ -1,4 +1,5 @@
 # Laser Blast
+Version 2.0
 
 ### Motivation
 Why did I write this program, and why in Python? 
@@ -16,10 +17,10 @@ To install, copy this file and the 5 source files to a directory on your compute
 To run enter: python LaserBlast.py
 
 ### Game Board
-The game board consisting of an 8 by 8 grid with red and green game pieces.
-The triangles are laser cannons, and the lines are double sided mirrors.
-The object of the game is to maneuver  your mirrors so you can fire your 
-laser cannon and destroy your opponents laser cannons.
+The game board consisting of an 9 by 9 grid with red and green game pieces.
+The pointy circles are laser cannons, and the lines are double-sided mirrors.
+The object of the game is to maneuver your laser cannons and mirrors so that you can fire your 
+laser cannon and destroy your opponents' laser cannons.
 
 ### Making Moves
 The color of the border indicates which players turn it is.
@@ -30,17 +31,14 @@ A single move can be:
 - Rotating a game piece.
 - Firing a laser cannon.
 
-First maneuver  the white cross over the piece to be selected and click.
-To move, maneuver  the white cross to the destination square and click. 
-To rotate, maneuver  the cross to one of the images on the right side of 
-the board and click.
-To fire a laser, maneuver  the cross to the FIRE text on the right side 
-of the board and click. 
-If you plan to move twice, you can do this in one step. 
-This allows you to jump over other pieces.
+First maneuver the white cross over the piece to be selected and click.
+To move: maneuver the white cross to the destination square and click. 
+To rotate: maneuver the cross to one of the images on the right side of the board and click.
+To fire a laser: maneuver the cross to the FIRE text on the right side of the board and click. 
+If you plan to move twice, you can do this in one step, this allows you to jump over other pieces.
 
 ### Firing the Laser
-The laser cannons can be rotated to four orientations. 
+The laser cannons can be rotated to eight orientations. 
 The mirrors can be rotated to eight orientations.
 The four borders are also covered in mirrors.
 This allows the laser beam to travel horizontally, vertically or diagonally.
