@@ -16,6 +16,9 @@ I am currently running pygames 2.1.2.
 To install, copy this file and the 5 source files to a directory on your computer.
 To run enter: python LaserBlast.py
 
+Keep up with the latest updates at:
+https://github.com/mikechristle/LaserBlast.git
+
 ### Game Board
 The game board consisting of an 9 by 9 grid with red and green game pieces.
 The pointy circles are laser cannons, and the lines are double-sided mirrors.
