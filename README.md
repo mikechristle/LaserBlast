@@ -19,6 +19,8 @@ To run enter: python LaserBlast.py
 Keep up with the latest updates at:
 https://github.com/mikechristle/LaserBlast.git
 
+Feedback welcome at feedback@christle.us.
+
 ### Game Board
 The game board consisting of an 9 by 9 grid with red and green game pieces.
 The pointy circles are laser cannons, and the lines are double-sided mirrors.
