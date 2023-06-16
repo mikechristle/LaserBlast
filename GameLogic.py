@@ -6,6 +6,7 @@
 # 14 Nov 2022 Mike Christle     Add mirrors to the borders
 # 15 Nov 2022 Mike Christle     Switch to 9x9 square grid
 #                               Allow laser cannons to fire diagonally
+# 16 Jun 2023 Mike Christle     Clear board before new game
 # ---------------------------------------------------------------------------
 # MIT Licence
 # Copyright 2022 Mike Christle
@@ -63,6 +64,11 @@ def init_game():
     """Initialize the board and game state for a new game."""
 
     global move_count
+
+    # Clear cells from previous game
+    for row in GameState.grid:
+        for cell in row:
+            cell.clear()
 
     # Place laser cannons on grid
     x = GameState.SQUARE_COUNT - 1

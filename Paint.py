@@ -83,7 +83,7 @@ player_color = RED
 pygame.init()
 screen = pygame.display.set_mode(SCREEN_SIZE)
 font = pygame.font.SysFont('Arial Bold', FONT_SIZE)
-pygame.display.set_caption('Laser Blast   V2.0   Press F1 to start a new game')
+pygame.display.set_caption('Laser Blast   V2.1   Press F1 to start a new game')
 
 
 # ---------------------------------------------------------------------------
